@@ -257,7 +257,7 @@ function zip_target_files {
     echo "Compress the target_files dir into zip file"
     cd $TARGET_FILES_DIR
     zip -q -r -y $TARGET_FILES_ZIP *
-    cd -OUTPUT_METADATA_DIROUTPUT_METADATA_DIR
+    cd -
 }
 
 # build a new full ota package
