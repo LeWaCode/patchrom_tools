@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# $1: previous targetfile.zip
+# #2: last targetfile.zip
+#
+TOOL_DIR=$PORT_ROOT/tools
+OTA_FROM_TARGET_FILES=$TOOL_DIR/releasetools/ota_from_target_files
+RECENT_TIME=`date +%y.%m.%d.%H`
+TARGET_DEVICE_LEWA=$PORT_PRODUCT
+LEWA_INCREMENTAL_OTA_PACKAGE=LeWa_${TARGET_DEVICE_LEWA}_OTA_${RECENT_TIME}.zip
+
+$OTA_FROM_TARGET_FILES -k $PORT_ROOT/build/security/testkey -i $1 $2 temp.zip
+cp temp.zip $LEWA_INCREMENTAL_OTA_PACKAGE
+rm -f temp.zip
+
