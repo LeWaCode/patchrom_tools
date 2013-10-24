@@ -9,6 +9,7 @@ TARGET_DEVICE_LEWA=$PORT_PRODUCT
 RECENT_TIME=`date +%y.%m.%d.%H`
 LEWA_OTA_PACKAGE=$OUT_DIR/OTA_LeWa_ROM_${TARGET_DEVICE_LEWA}_${RECENT_TIME}.zip
 LEWA_OTA_FULL_PACKAGE=$OUT_DIR/FULL_LeWa_ROM_${TARGET_DEVICE_LEWA}_${RECENT_TIME}.zip
+FULL_OTA_PACKAGE=$OUT_DIR/lewa_${TARGET_DEVICE_LEWA}_$PARTNER_${RECENT_TIME}_4.1.zip
 TARGET_FILES_TEMPLATE_DIR=$PORT_ROOT/tools/target_files_template
 TOOL_DIR=$PORT_ROOT/tools
 OTA_FROM_TARGET_FILES=$TOOL_DIR/releasetools/ota_from_target_files
@@ -95,7 +96,12 @@ function sign_target_files {
 function build_ota_package {
     echo "Build full ota package: $OUT_DIR/$OUT_ZIP_FILE"
     $OTA_FROM_TARGET_FILES -n -k $PORT_ROOT/build/security/testkey $TARGET_FILES_ZIP $OUT_DIR/$OUT_ZIP_FILE
-    cp $FULL_OTA_FILES_ZIP $LEWA_OTA_FULL_PACKAGE
+    if [ "$PARTNER" != "Lewa" ];then
+        echo $PARTNER
+        cp $FULL_OTA_FILES_ZIP $FULL_OTA_PACKAGE
+    else
+        cp $FULL_OTA_FILES_ZIP $LEWA_OTA_FULL_PACKAGE
+    fi
 }
 
 
