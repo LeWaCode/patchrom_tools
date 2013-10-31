@@ -79,8 +79,8 @@ import edify_generator
 OPTIONS = common.OPTIONS
 OPTIONS.package_key = None
 OPTIONS.incremental_source = None
-OPTIONS.require_verbatim = set()
-OPTIONS.prohibit_verbatim = set(("system/build.prop",))
+OPTIONS.require_verbatim = set(("system/build.prop",))
+OPTIONS.prohibit_verbatim = set()
 OPTIONS.patch_threshold = 0.95
 OPTIONS.wipe_user_data = False
 OPTIONS.omit_prereq = False
