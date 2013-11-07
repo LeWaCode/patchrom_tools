@@ -63,3 +63,4 @@ name="LewaDeskClock.apk" certificate="build/target/product/security/platform.x50
 name="LewaCit.apk" certificate="build/target/product/security/testkey.x509.pem" private_key="build/target/product/security/testkey.pk8"
 name="BaiduSearch.apk" certificate="PRESIGNED" private_key=""
 name="huohua_videoplayer.apk" certificate="PRESIGNED" private_key=""
+name="OupengBrowser.apk" certificate="PRESIGNED" private_key=""
