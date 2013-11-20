@@ -5,9 +5,10 @@
 #
 TOOL_DIR=$PORT_ROOT/tools
 OTA_FROM_TARGET_FILES=$TOOL_DIR/releasetools/ota_from_target_files
-RECENT_TIME=`date +%y.%m.%d.%H`
+PREVIOUS_TIME=`basename $1 | sed -e 's/OTA_LeWa_ROM_M1S_JB_//' | sed -e 's/\.zip//'`
+LAST_TIME=`basename $2 | sed -e 's/OTA_LeWa_ROM_M1S_JB_//' | sed -e 's/\.zip//'`
 TARGET_DEVICE_LEWA=$PORT_PRODUCT
-LEWA_INCREMENTAL_OTA_PACKAGE=LeWa_${TARGET_DEVICE_LEWA}_OTA_${RECENT_TIME}.zip
+LEWA_INCREMENTAL_OTA_PACKAGE=LeWa_${TARGET_DEVICE_LEWA}_OTA_${PREVIOUS_TIME}-${LAST_TIME}.zip
 
 $OTA_FROM_TARGET_FILES -k $PORT_ROOT/build/security/testkey -i $1 $2 temp.zip
 cp temp.zip $LEWA_INCREMENTAL_OTA_PACKAGE
