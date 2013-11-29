@@ -14,7 +14,8 @@ from xml.dom import minidom
 fdir=sys.argv[1]
 drawables=fdir +"/res/values/drawables.xml"
 dimens=fdir +"/res/values/dimens.xml"
-filnames=[ drawables, dimens ]
+colors=fdir +"/res/values/colors.xml"
+filnames=[ drawables, dimens, colors]
 for filename in filnames:
 	xmldoc = minidom.parse(filename)
 	root = xmldoc.firstChild
