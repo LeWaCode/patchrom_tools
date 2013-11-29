@@ -358,10 +358,10 @@ def SignFile(input_name, output_name, key, password, align=None,
 
   check = (sys.maxsize > 2**32)
   if check is True:
-    cmd = ["java", "-Xmx2048m", "-jar",
+    cmd = ["java", "-Xmx4096m", "-jar",
            os.path.join(OPTIONS.search_path, "signapk.jar")]
   else:
-    cmd = ["java", "-Xmx1024m", "-jar",
+    cmd = ["java", "-Xmx2048m", "-jar",
            os.path.join(OPTIONS.search_path, "signapk.jar")]
 
   if whole_file:
