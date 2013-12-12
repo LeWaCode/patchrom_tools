@@ -34,18 +34,20 @@ function repackbootimg() {
     --ramdisk $BOOTIMAGE_PATH/unpack/boot.img-ramdisk.gz \
     -o $BOOTIMAGE_PATH/target_img/boot.img --base `cat $BOOTIMAGE_PATH/unpack/boot.img-base` \
     --cmdline "`cat $BOOTIMAGE_PATH/unpack/boot.img-cmdline`" \
-    --pagesize `cat $BOOTIMAGE_PATH/unpack/boot.img-pagesize`
+    --pagesize `cat $BOOTIMAGE_PATH/unpack/boot.img-pagesize` \
+    --ramdiskaddr `cat $BOOTIMAGE_PATH/unpack/boot.img-ramdiskaddr`
 }
 
 function patch_bootimage() {
     sed -i 's/services.jar/services.jar:\/system\/framework\/lewa-framework.jar/g' $BOOTIMAGE_PATH/boot/init.rc
+    sed -i 's/ro\.secure=.*/ro\.secure=0/' $BOOTIMAGE_PATH/boot/default.prop
 }
 
 if [ -n "$1" ]; then
     unpackbootimg
     patch_bootimage
     repackbootimg
-    cp $BOOTIMAGE_PATH/target_img $BOOTIMAGE_PATH/
+    cp -f $BOOTIMAGE_PATH/target_img/boot.img $BOOTIMAGE_PATH/
     rm -rf $BOOTIMAGE_PATH/target_img
     rm -rf $BOOTIMAGE_PATH/boot
     rm -rf $BOOTIMAGE_PATH/unpack
