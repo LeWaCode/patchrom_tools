@@ -58,7 +58,7 @@ name="LewaSearch.apk" certificate="build/target/product/security/platform.x509.p
 name="ThemeChooser.apk" certificate="build/target/product/security/platform.x509.pem" private_key="build/target/product/security/platform.pk8"
 name="LewaThemeManager.apk" certificate="build/target/product/security/platform.x509.pem" private_key="build/target/product/security/platform.pk8"
 name="LewaVirusDefense.apk" certificate="build/target/product/security/shared.x509.pem" private_key="build/target/product/security/shared.pk8"
-name="VoiceAssistant.apk" certificate="PRESIGNED" private_key=""
+name="BaiduVoiceAssistant.apk" certificate="PRESIGNED" private_key=""
 name="LewaDeskClock.apk" certificate="build/target/product/security/platform.x509.pem" private_key="build/target/product/security/platform.pk8"
 name="LewaCit.apk" certificate="build/target/product/security/testkey.x509.pem" private_key="build/target/product/security/testkey.pk8"
 name="BaiduSearch.apk" certificate="PRESIGNED" private_key=""
