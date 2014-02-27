@@ -15,6 +15,6 @@ else
     echo "ro.lewa.device=$2" >> $build_prop_file.new
 fi
 echo "ro.sys.partner=$4" >>  $build_prop_file.new
-echo "ro.lewa.version=LeWa_$(date +%y.%m.%d)" >> $build_prop_file.new
+echo "ro.lewa.version=LeWa_OS5.1_$(date +%y.%m.%d)" >> $build_prop_file.new
 mv $build_prop_file.new $build_prop_file
 
