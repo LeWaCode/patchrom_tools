@@ -16,7 +16,6 @@ OTA_FROM_TARGET_FILES=$TOOL_DIR/releasetools/ota_from_target_files
 SIGN_TARGET_FILES_APKS=$TOOL_DIR/releasetools/sign_target_files_apks
 OUT_ZIP_FILE=
 NO_SIGN=false
-TARGET_OTA_ASSERT_DEVICE=$OTA_ASSERT_DEVICE
 
 # copy the whole target_files_template dir
 function copy_target_files_template {
@@ -96,7 +95,7 @@ function sign_target_files {
 # build a new full ota package
 function build_ota_package {
     echo "Build full ota package: $OUT_DIR/$OUT_ZIP_FILE"
-    $OTA_FROM_TARGET_FILES -n -k $PORT_ROOT/build/security/testkey -o $TARGET_OTA_ASSERT_DEVICE $TARGET_FILES_ZIP $OUT_DIR/$OUT_ZIP_FILE
+    $OTA_FROM_TARGET_FILES -n -k $PORT_ROOT/build/security/testkey $TARGET_FILES_ZIP $OUT_DIR/$OUT_ZIP_FILE
     if [ "$PARTNER" != "Lewa" ];then
         cp $FULL_OTA_FILES_ZIP $FULL_OTA_PACKAGE
     else
