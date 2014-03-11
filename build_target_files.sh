@@ -16,6 +16,7 @@ OTA_FROM_TARGET_FILES=$TOOL_DIR/releasetools/ota_from_target_files
 SIGN_TARGET_FILES_APKS=$TOOL_DIR/releasetools/sign_target_files_apks
 OUT_ZIP_FILE=
 NO_SIGN=false
+TARGET_OTA_ASSERT_DEVICE=$OTA_ASSERT_DEVICE
 
 # copy the whole target_files_template dir
 function copy_target_files_template {
@@ -71,6 +72,7 @@ function process_metadata {
     cp -f $METADATA_DIR/recovery.fstab $TARGET_FILES_DIR/RECOVERY/RAMDISK/etc
     python $TOOL_DIR/uniq_first.py $METADATA_DIR/apkcerts.txt $TARGET_FILES_DIR/META/apkcerts.txt $PRJ_DIR
     cat $TARGET_FILES_DIR/META/apkcerts.txt | sort > $TARGET_FILES_DIR/temp.txt
+    cat $TOOL_DIR/metadata/apkcerts_lewa.txt | sort >> $TARGET_FILES_DIR/temp.txt
     mv $TARGET_FILES_DIR/temp.txt $TARGET_FILES_DIR/META/apkcerts.txt
     recover_link
 }
@@ -95,7 +97,7 @@ function sign_target_files {
 # build a new full ota package
 function build_ota_package {
     echo "Build full ota package: $OUT_DIR/$OUT_ZIP_FILE"
-    $OTA_FROM_TARGET_FILES -n -k $PORT_ROOT/build/security/testkey $TARGET_FILES_ZIP $OUT_DIR/$OUT_ZIP_FILE
+    $OTA_FROM_TARGET_FILES -n -k $PORT_ROOT/build/security/testkey -o $TARGET_OTA_ASSERT_DEVICE $TARGET_FILES_ZIP $OUT_DIR/$OUT_ZIP_FILE
     if [ "$PARTNER" != "Lewa" ];then
         cp $FULL_OTA_FILES_ZIP $FULL_OTA_PACKAGE
     else
