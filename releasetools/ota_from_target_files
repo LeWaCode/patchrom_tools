@@ -51,6 +51,9 @@ Usage:  ota_from_target_files [flags] input_target_files output_ota_package
 
   -a  (--aslr_mode)  <on|off>
       Specify whether to turn on ASLR for the package (on by default).
+
+  -o  (--override_device)  <device>
+      Override device-specific asserts. Can be a comma-separated list.
 """
 
 import sys
@@ -87,6 +90,7 @@ OPTIONS.omit_prereq = False
 OPTIONS.extra_script = None
 OPTIONS.aslr_mode = True
 OPTIONS.worker_threads = 3
+OPTIONS.override_device = 'auto'
 
 def MostPopularKey(d, default):
   """Given a dict, return the key corresponding to the largest
@@ -325,7 +329,10 @@ def SignOutput(temp_zip_name, output_zip_name):
 
 
 def AppendAssertions(script, input_zip):
-  device = GetBuildProp("ro.product.device", input_zip)
+  if OPTIONS.override_device == "auto":
+    device = GetBuildProp("ro.product.device", input_zip)
+  else:
+    device = OPTIONS.override_device
   script.AssertDevice(device)
 
 
@@ -779,7 +786,6 @@ def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
   for item in deferred_patch_list:
     fn, tf, sf, size, _ = item
     script.ApplyPatch("/"+fn, "-", tf.size, tf.sha1, sf.sha1, "patch/"+fn+".p")
-  
   device_specific.IncrementalOTA_InstallEnd()
 
   script.SetPermissions("/system/build.prop", 0, 0, 0644)
@@ -810,12 +816,14 @@ def main(argv):
         OPTIONS.aslr_mode = False
     elif o in ("--worker_threads"):
       OPTIONS.worker_threads = int(a)
+    elif o in ("-o", "--override_device"):
+      OPTIONS.override_device = a
     else:
       return False
     return True
 
   args = common.ParseOptions(argv, __doc__,
-                             extra_opts="b:k:i:d:wne:a:",
+                             extra_opts="b:k:i:d:wne:a:o:",
                              extra_long_opts=["board_config=",
                                               "package_key=",
                                               "incremental_from=",
@@ -824,7 +832,7 @@ def main(argv):
                                               "extra_script=",
                                               "worker_threads=",
                                               "aslr_mode=",
-                                              ],
+                                              "override_device="],
                              extra_option_handler=option_handler)
 
   if len(args) != 2:
