@@ -7,9 +7,10 @@ TARGET_FILES_ZIP=$OUT_DIR/target_files.zip
 FULL_OTA_FILES_ZIP=$OUT_DIR/fullota.zip
 TARGET_DEVICE_LEWA=$PORT_PRODUCT
 RECENT_TIME=`date +%y.%m.%d.%H`
+RELEASE_TIME=`date +%y.%m.%d`
 LEWA_OTA_PACKAGE=$OUT_DIR/OTA_LeWa_ROM_${TARGET_DEVICE_LEWA}_${RECENT_TIME}.zip
 LEWA_OTA_FULL_PACKAGE=$OUT_DIR/FULL_LeWa_ROM_${TARGET_DEVICE_LEWA}_${RECENT_TIME}.zip
-FULL_OTA_PACKAGE=$OUT_DIR/lewa_${TARGET_DEVICE_LEWA}_$PARTNER_${RECENT_TIME}_4.1.zip
+FULL_OTA_PACKAGE=$OUT_DIR/LeWa_${TARGET_DEVICE_LEWA}_ROM_${RELEASE_TIME}.zip
 TARGET_FILES_TEMPLATE_DIR=$PORT_ROOT/tools/target_files_template
 TOOL_DIR=$PORT_ROOT/tools
 OTA_FROM_TARGET_FILES=$TOOL_DIR/releasetools/ota_from_target_files
@@ -72,6 +73,7 @@ function process_metadata {
     cp -f $METADATA_DIR/recovery.fstab $TARGET_FILES_DIR/RECOVERY/RAMDISK/etc
     python $TOOL_DIR/uniq_first.py $METADATA_DIR/apkcerts.txt $TARGET_FILES_DIR/META/apkcerts.txt $PRJ_DIR
     cat $TARGET_FILES_DIR/META/apkcerts.txt | sort > $TARGET_FILES_DIR/temp.txt
+    cat $TOOL_DIR/metadata/apkcerts_lewa.txt | sort >> $TARGET_FILES_DIR/temp.txt
     mv $TARGET_FILES_DIR/temp.txt $TARGET_FILES_DIR/META/apkcerts.txt
     recover_link
 }
