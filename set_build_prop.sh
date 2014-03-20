@@ -16,11 +16,7 @@ else
     echo "ro.lewa.device=$2" >> $build_prop_file.new
 fi
 echo "ro.sys.partner=$4" >>  $build_prop_file.new
-if [ $4 == Lewa ]; then
-    echo "ro.lewa.version=LeWa_OS5.1_$(date +%y.%m.%d)" >> $build_prop_file.new
-else
-    echo "ro.lewa.version=LeWa_OS5.1_$3" >> $build_prop_file.new
-fi
+echo "ro.lewa.version=LeWa_OS5.1_$(date +%y.%m.%d)" >> $build_prop_file.new
 echo "ro.lewa.osversion=5" >>  $build_prop_file.new
 echo "persist.power.useautobrightadj=true" >> $build_prop_file.new
 mv $build_prop_file.new $build_prop_file

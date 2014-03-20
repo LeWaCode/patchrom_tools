@@ -11,7 +11,6 @@ RELEASE_TIME=`date +%y.%m.%d`
 LEWA_OTA_PACKAGE=$OUT_DIR/OTA_LeWa_ROM_${TARGET_DEVICE_LEWA}_${RECENT_TIME}.zip
 LEWA_OTA_FULL_PACKAGE=$OUT_DIR/FULL_LeWa_ROM_${TARGET_DEVICE_LEWA}_${RECENT_TIME}.zip
 FULL_OTA_PACKAGE=$OUT_DIR/LeWa_${TARGET_DEVICE_LEWA}_ROM_${RELEASE_TIME}.zip
-OTA_PACKAGE=$OUT_DIR/OTA_LeWa_ROM_${TARGET_DEVICE_LEWA}_${RELEASE_TIME}.zip
 TARGET_FILES_TEMPLATE_DIR=$PORT_ROOT/tools/target_files_template
 TOOL_DIR=$PORT_ROOT/tools
 OTA_FROM_TARGET_FILES=$TOOL_DIR/releasetools/ota_from_target_files
@@ -93,11 +92,7 @@ function sign_target_files {
     echo "Sign target files"
     $SIGN_TARGET_FILES_APKS -d $PORT_ROOT/build/security $TARGET_FILES_ZIP temp.zip
     mv temp.zip $TARGET_FILES_ZIP
-    if [ "$PARTNER" != "Lewa" ];then
-        cp $TARGET_FILES_ZIP $LEWA_OTA_PACKAGE
-    else
-        cp $TARGET_FILES_ZIP $OTA_PACKAGE
-    fi
+    cp $TARGET_FILES_ZIP $LEWA_OTA_PACKAGE
 }
 
 # build a new full ota package
