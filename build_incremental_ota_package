@@ -1,7 +1,8 @@
 #!/bin/bash
 #
 # $1: previous targetfile.zip
-# #2: last targetfile.zip
+# $2: last targetfile.zip
+# $3: porting device directory
 #
 TOOL_DIR=$PORT_ROOT/tools
 OTA_FROM_TARGET_FILES=$TOOL_DIR/releasetools/ota_from_target_files
@@ -9,8 +10,17 @@ TARGET_DEVICE_LEWA=$PORT_PRODUCT
 PREVIOUS_TIME=`basename $1 | sed -e s/OTA_LeWa_ROM_${PORT_PRODUCT}_// | sed -e 's/\.zip//'`
 LAST_TIME=`basename $2 | sed -e s/OTA_LeWa_ROM_${PORT_PRODUCT}_// | sed -e 's/\.zip//'`
 LEWA_INCREMENTAL_OTA_PACKAGE=LeWa_${TARGET_DEVICE_LEWA}_OTA_${PREVIOUS_TIME}-${LAST_TIME}.zip
+if [ -z $3 ]; then
+    echo "no override_device."
+else
+    TARGET_OTA_ASSERT_DEVICE=`cat $PORT_ROOT/$3/makefile | grep "local-ota-assert-device" | sed 's/local-ota-assert-device :=//g'`
+fi
 
-$OTA_FROM_TARGET_FILES -k $PORT_ROOT/build/security/testkey -i $1 $2 temp.zip
+if [ -z $3 ]; then
+    $OTA_FROM_TARGET_FILES -k $PORT_ROOT/build/security/testkey -i  $1 $2 temp.zip
+else
+    $OTA_FROM_TARGET_FILES -k $PORT_ROOT/build/security/testkey -o $TARGET_OTA_ASSERT_DEVICE -i  $1 $2 temp.zip
+fi
 cp temp.zip $LEWA_INCREMENTAL_OTA_PACKAGE
 rm -f temp.zip
 
