@@ -105,9 +105,9 @@ function build_ota_package {
     echo "Build full ota package: $OUT_DIR/$OUT_ZIP_FILE"
     $OTA_FROM_TARGET_FILES -n -k $PORT_ROOT/build/security/testkey -o $TARGET_OTA_ASSERT_DEVICE $TARGET_FILES_ZIP $OUT_DIR/$OUT_ZIP_FILE
     if [ "$PARTNER" != "Lewa" ];then
-        cp $FULL_OTA_FILES_ZIP $FULL_OTA_PACKAGE
+        cp $OUT_DIR/$OUT_ZIP_FILE $FULL_OTA_PACKAGE
     else
-        cp $FULL_OTA_FILES_ZIP $LEWA_OTA_FULL_PACKAGE
+        cp $OUT_DIR/$OUT_ZIP_FILE $LEWA_OTA_FULL_PACKAGE
     fi
 }
 
