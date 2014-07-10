@@ -80,11 +80,9 @@ function apply_lewa_patch() {
 	rm -rf $dst_code_orig
 }
 
-jar_outs=`grep -rn "JAR_OUTS" $new_smali_dir/README | cut -d'=' -f2`
-for out in $jar_outs
-do
-	apply_lewa_patch $out
-done
+apply_lewa_patch android.policy.jar.out
+apply_lewa_patch services.jar.out
+apply_lewa_patch framework.jar.out
 
 echo
 echo
