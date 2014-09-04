@@ -76,3 +76,5 @@ name="YellowpagesProvider.apk" certificate="build/target/product/security/shared
 name="MeikaCam.apk" certificate="build/target/product/security/platform.x509.pem" private_key="build/target/product/security/platform.pk8"
 name="lewabbs.apk" certificate="build/target/product/security/platform.x509.pem" private_key="build/target/product/security/platform.pk8"
 name="LewaRoundR.apk" certificate="build/target/product/security/platform.x509.pem" private_key="build/target/product/security/platform.pk8"
+name="baixing.apk" certificate="PRESIGNED" private_key=""
+name="LewaAccountSystemServer.apk" certificate="PRESIGNED" private_key=""
