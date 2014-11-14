@@ -55,8 +55,8 @@ javaOpts=""
 # If you want DX to have more memory when executing, uncomment the following
 # line and adjust the value accordingly. Use "java -X" for a list of options
 # you can pass here.
-# 
-javaOpts="-Xmx256M"
+#
+javaOpts="-Xmx512M"
 
 # Alternatively, this will extract any parameter "-Jxxx" from the command line
 # and pass them to Java (instead of to dx). This makes it possible for you to
